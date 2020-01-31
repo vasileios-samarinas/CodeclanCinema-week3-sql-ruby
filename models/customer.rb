@@ -19,6 +19,12 @@ attr_accessor :name, :funds
     @id=customer['id'].to_i
   end
 
+  def delete()
+    sql="DELETE FROM customers where id=$1"
+    values=[@id]
+    SqlRunner.run(sql,values)
+  end
+
   def self.all
     sql="SELECT * FROM customers"
     customer_data=SqlRunner.run(sql)
