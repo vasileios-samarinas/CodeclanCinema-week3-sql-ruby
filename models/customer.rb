@@ -45,16 +45,19 @@ attr_accessor :name, :funds
 
     def films
       sql="SELECT films.* FROM films INNER JOIN tickets
-      on films.id=tickets.film_id WHERE customer_id=$1"
+      ON films.id=tickets.film_id WHERE customer_id=$1"
       values=[@id]
       film_data=SqlRunner.run(sql,values)
       return Film.map_items(film_data)
+    end
+
+    def film_count_per_customer
+      return films.count
     end
 
   def self.map_items(customer_data)
     result=customer_data.map{|customer| Customer.new(customer)}
     return result
   end
-
 
 end
